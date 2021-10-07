@@ -1,10 +1,9 @@
 import csv
 from random import choice, uniform, randint
-!pip install faker #я работала в коллабе
+!pip install faker 
 from faker import Faker
-from collections import defaultdict #невероятная штука!!
+from collections import defaultdict 
 
-# по правилам этот код нельзя было менять, поэтому я его не преобразовывала
 DEP_MARKETING = 'Маркетинг'
 DEP_SALES = 'Продажи'
 DEP_DEVEL = 'Разработка'
@@ -74,7 +73,7 @@ with open('./My_new_file.csv', 'w') as f:
             randint(SALARY_MIN, SALARY_MAX) // 100 * 100,
         ))
 
-# конец обязательного кода 
+
 
 def hierarchy(): 
 
@@ -83,9 +82,9 @@ def hierarchy():
   где Д. - ключ, О. - значения"""
 
   with open('./My_new_file.csv', newline='') as csvFile:
-    csvReader = csv.DictReader(csvFile, delimiter = ';')
+    csv_Reader = csv.DictReader(csvFile, delimiter = ';')
     depart_team = defaultdict(set)
-    for row in csvReader:
+    for row in csv_Reader:
       depart_team[row['Департамент']].add(row['Отдел'])
       
     print('\nСписок всех депаратментов и отделов:\n')
@@ -99,9 +98,9 @@ def report():
   названия департамента, средней ЗП, минимуму и максимум по вилке, численостью"""
 
   with open('./My_new_file.csv', newline='') as csvFile: 
-    csvReader = csv.DictReader(csvFile, delimiter = ';')
+    csv_Reader = csv.DictReader(csvFile, delimiter = ';')
     salary = defaultdict(list)
-    for row in csvReader:
+    for row in csv_Reader:
       salary_departments = int(row['Оклад'])
       salary[row['Департамент']].append(salary_departments)
     
@@ -117,9 +116,9 @@ def save_csv_report():
   """ Здесь мы записываем csv файл с итоговым сводным отчетом по департаментам"""
   
   with open('./My_new_file.csv', newline='') as csvFile: 
-    csvReader = csv.DictReader(csvFile, delimiter = ';')
+    csv_Reader = csv.DictReader(csvFile, delimiter = ';')
     salary = defaultdict(list)
-    for row in csvReader:
+    for row in csv_Reader:
       salary_departments = int(row['Оклад'])
       salary[row['Департамент']].append(salary_departments)
      
@@ -128,8 +127,8 @@ def save_csv_report():
 
     with open('./report.csv','w') as csvFile:
       header = ['Департамент', 'Средняя ЗП', 'Min.ЗП', 'Max.ЗП','Численность']
-      csvWriter = csv.DictWriter(csvFile, fieldnames = header)
-      csvWriter.writeheader()
+      csv_Writer = csv.DictWriter(csvFile, fieldnames = header)
+      csv_Writer.writeheader()
       for department, wage in salary.items():
         csvWriter.writerow({'Департамент' : department, 'Средняя ЗП' : sum(wage) // len(wage), 
                       'Min.ЗП' : min(wage),'Max.ЗП': max(wage),'Численность' :  len(wage)})
